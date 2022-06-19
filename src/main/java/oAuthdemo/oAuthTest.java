@@ -53,7 +53,7 @@ public class oAuthTest {
 		System.out.println("Access TOken :" + accessToken);
 
 		// hit access url by passing accessToken in query params
-		// Converting Response body in GetCourse object using as(GetCourse.class)
+		// Converting Response body in GetCourse object using as(GetCourse.class)  (Deserilization)
 		GetCourse gc = given().queryParam("access_token", accessToken)
 				.expect().defaultParser(Parser.JSON)   // check whether Response is JSON  or we skip if response-type is application/json in response headers
 				.when()
