@@ -2,19 +2,29 @@ package oAuthdemo;
 
 import static io.restassured.RestAssured.given;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.testng.Assert;
+
 import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
+import pojo.Api;
 import pojo.GetCourse;
+import pojo.WebAutomation;
 
 public class oAuthTest {
 
 	public static void main(String[] args) {
+		
+	
 
 //		Hit Below url on browser  
 //		https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&auth_url=https://accounts.google.com/o/oauth2/v2/auth&client_id=692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj.apps.googleusercontent.com&response_type=code&redirect_uri=https://rahulshettyacademy.com/getCourse.php&state=verifyisha
 //		and login with google account and paste url redirect in below String
 
-		String resp = "https://rahulshettyacademy.com/getCourse.php?state=verifyisha&code=4%2F0AX4XfWiTyMUSpY0LdMxJqi3yQFL9nMZ39xseGYrF5KkY02qVtyIDaaoHmSShPkSrsncJQA&scope=email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=1&prompt=none";
+		String resp = "https://rahulshettyacademy.com/getCourse.php?state=verifyisha&code=4%2F0AX4XfWgTUUuOGCstWsEUi4Xn2uvDoJkq2BxPJMfVutGF80if7bQNL_XQjCdumvrcKLKFPA&scope=email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=1&prompt=none";
 
 		String partialcode = resp.split("code=")[1];
 
@@ -47,14 +57,50 @@ public class oAuthTest {
 		GetCourse gc = given().queryParam("access_token", accessToken)
 				.expect().defaultParser(Parser.JSON)   // check whether Response is JSON  or we skip if response-type is application/json in response headers
 				.when()
+//				.log().all()
 				.get("https://rahulshettyacademy.com/getCourse.php").as(GetCourse.class);   // convert respoonse as GetCourse object
 
 		System.out.println("LinkedIn :"+ gc.getLinkedIn());
 		System.out.println("Instructor :"+gc.getInstructor());
 		System.out.println(gc.getCourses().getApi().get(1).getCourseTitle());
+		
+		String price = gc.getCourses().getMobile().get(0).getPrice();
 
-//		System.out.println(response);
-
+		System.out.println("Price :"+price);
+	
+		
+		System.out.println("Finding the price of SoapUI Webservices testing");
+		List<Api> apiCourses=gc.getCourses().getApi();
+	
+		for(int i=0;i<apiCourses.size();i++)
+		{
+			if(apiCourses.get(i).getCourseTitle().equalsIgnoreCase("SoapUI Webservices testing"))
+					{
+							System.out.println(apiCourses.get(i).getPrice());
+					}
+		}
+		
+		System.out.println("Get the course names of WebAutomation");
+		
+		String[] courseTitles= { "Selenium Webdriver Java","Cypress","Protractor"};
+		
+		
+		ArrayList<String> titles= new ArrayList<String>();
+		
+		
+		List<WebAutomation> w=gc.getCourses().getWebAutomation();
+		
+		for(int j=0;j<w.size();j++)
+		{
+			titles.add(w.get(j).getCourseTitle());
+		}
+		
+		List<String> expectedList=	Arrays.asList(courseTitles);
+		System.out.println("expectedList :"+expectedList);
+		System.out.println("actualList :"+titles);
+		
+		
+		Assert.assertTrue(titles.equals(expectedList));
 	}
 
 }

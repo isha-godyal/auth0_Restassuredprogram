@@ -2,11 +2,11 @@ package pojo;
 
 import java.util.List;
 
-// Nested object of GetCourses
 public class Courses {
 	private List<WebAutomation> webAutomation;
 	private List<Api> api;
 	private List<Mobile> mobile;
+	
 	public List<WebAutomation> getWebAutomation() {
 		return webAutomation;
 	}
