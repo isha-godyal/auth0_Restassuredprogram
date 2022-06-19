@@ -1,8 +1,11 @@
 package pojo;
 
+// Nested object of Courses for webAutomation data member
 public class WebAutomation {
 
 	private String courseTitle;
+	private String price;
+	
 	public String getCourseTitle() {
 		return courseTitle;
 	}
@@ -15,7 +18,7 @@ public class WebAutomation {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-	private String price;
+	
 	
 	
 	

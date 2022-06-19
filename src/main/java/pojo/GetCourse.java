@@ -1,5 +1,9 @@
 package pojo;
 
+
+// pojo class 
+// Plain Old Java Object which contains private data members and public setter and getter methods for every data members.
+// ref https://medium.com/@abdjabbar110/what-is-java-pojo-class-and-java-bean-class-with-example-e63c4c0811a9
 public class GetCourse {
 	private String url;
 	private String services;
@@ -44,4 +48,5 @@ public class GetCourse {
 	public void setLinkedIn(String linkedIn) {
 		this.linkedIn = linkedIn;
 	}
+
 }

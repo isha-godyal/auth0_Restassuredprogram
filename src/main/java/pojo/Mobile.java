@@ -1,5 +1,6 @@
 package pojo;
 
+// Nested object of Courses for mobile data member
 public class Mobile {
 
 	private String courseTitle;

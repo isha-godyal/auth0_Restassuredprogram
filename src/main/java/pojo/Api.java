@@ -1,5 +1,6 @@
 package pojo;
 
+// Nested object of Courses for Api data member
 public class Api {
 
 	private String courseTitle;
